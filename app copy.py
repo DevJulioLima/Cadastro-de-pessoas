@@ -9,7 +9,7 @@ while True:
     opcao = input('Digite 1 para cadastrar \n'
                   'Digite 2 para listar \n'
                   'Digite 3 para alterar \n'
-                  'Digite 4 para deletar todos os cadastros \n'
+                  'Digite 4 para deletar os cadastros \n'
                   'Digite 5 para sair \n')
 
     # Cadastro
@@ -31,7 +31,34 @@ while True:
             print('Erro! Digite uma idade válida (1-150).')
             idade2 = input("Digite sua idade: ")
         idade1.append(idade2)
-        print('\nCadastro realizado com sucesso!')
+        
+        # Adicionando a lógica p/ confirmar que as informações estão corretas (S/N)
+        confirmar = input('Confirma que as informações estão corretas? (S/N): ').strip().upper()
+        while confirmar not in ('S', 'N'):
+            print('Erro! Digite "S" para sim ou "N" para não')
+            confirmar = input('Confirma as informações? (S/N): ').strip().upper()
+
+        if confirmar == 'S':
+            print('\nCadastro realizado com sucesso!')
+        else:
+            print('\nCadastro cancelado. Por favor, revise e modique os seus dados!')
+
+            # Revisando e modificando os dados
+            nome2 = input(f'Nome atual: {nome1[-1]}. Digite o novo nome ou pressione Enter para manter: ')
+            if len(nome2) > 10:
+                nome1[-1] = nome2  # Atualiza o nome se um novo nome válido for inserido
+
+            # Revisar e modificar CPF
+            cpf2 = input(f'CPF atual: {cpf1[-1]}. Digite o novo CPF ou pressione Enter para manter: ')
+            if cpf2.isdigit() and len(cpf2) == 11:
+                cpf1[-1] = cpf2  # Atualiza o CPF se um novo CPF válido for inserido
+
+            # Revisar e modificar idade
+            idade2 = input(f'Idade atual: {idade1[-1]}. Digite a nova idade ou pressione Enter para manter: ')
+            if idade2.isdigit() and (1 <= int(idade2) <= 150):
+                idade1[-1] = idade2  # Atualiza a idade se uma nova idade válida for inserida
+
+            print('Dados atualizados com sucesso!')
 
     # Listagem
     elif opcao == '2':
